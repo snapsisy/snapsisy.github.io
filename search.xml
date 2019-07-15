@@ -4,13 +4,27 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2019/07/14/hello-world/"/>
-      <url>/2019/07/14/hello-world/</url>
+      <title>computer without graphic cards</title>
+      <link href="/2019/07/15/computer-without-graphic-cards/"/>
+      <url>/2019/07/15/computer-without-graphic-cards/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<p> Today, I tried to remove the graphic card fron my old computer, which uses xeon e3 1230v2, which does not contain a core graphics card and need a discrete gpu to light up, i installed a freenas on it, which has no gui, remotely controlled through web page.</p><p> After i removed the gpu, i plugged another pcie2nvme card with a samsung sm961 on it to the finally-free slot and boot it. It succeeded, and i can normally add the new sm961 to my zfs pool.</p><p> Though i know that many hardware like routers, like ssd controllers, don’t have a video output and they can function well, but on pc hardware, i see it for the first time. And i searched for it, it says, some old pc boards dosen’t support booting without video outputs, the support starts from these years.</p><p> And now i have a useless gtx750ti, i think i’m ready to melt it into nails.  :)</p>]]></content>
       
       
+      <categories>
+          
+          <category> technology </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hardware </tag>
+            
+            <tag> gpu </tag>
+            
+        </tags>
       
     </entry>
     
