@@ -176,8 +176,7 @@ var _hmt = _hmt || [];
   <div class="row">
 	
 	
-		<h3 id="ZFS-AND-RAID-Z"><a href="#ZFS-AND-RAID-Z" class="headerlink" title="ZFS AND RAID-Z"></a>ZFS AND RAID-Z</h3><p>First let’s look back to where zfs was born.<br>    <a href="https://en.wikipedia.org/wiki/ZFS" target="_blank" rel="noopener">wikipedia</a></p>
-
+		<h3 id="ZFS-AND-RAID-Z"><a href="#ZFS-AND-RAID-Z" class="headerlink" title="ZFS AND RAID-Z"></a>ZFS AND RAID-Z</h3>
 	
 	</div>
   <a type="button" href="/2019/08/03/zfs-and-raidz/#more" class="btn btn-default more">Read More</a>
@@ -204,7 +203,9 @@ var _hmt = _hmt || [];
   <div class="row">
 	
 	
-		<p>In freenas, you can configure jail, which is the same thing like chroot, or in fact, chroot is son of jail. Jail first appear in BSD flavor unix. And after you create a jail or more, you can add different plugins for each jail, and different jails won’t affect echo other. So you can create a gitlab local server in one jail and a ftpserver in another.<br>But you need to have a pool to create a jail first.</p>
+		<a id="more"></a>
+
+<p>In freenas, you can configure jail, which is the same thing like chroot, or in fact, chroot is son of jail. Jail first appear in BSD flavor unix. And after you create a jail or more, you can add different plugins for each jail, and different jails won’t affect echo other. So you can create a gitlab local server in one jail and a ftpserver in another.<br>But you need to have a pool to create a jail first.</p>
 <p>A pool is a virtual storage device in zfs. It’s like a windows volumn in some ways, but the volumn can include multiple storage devices. You can keep adding sotrage devices to a pool, but i don’t know if it has a restriction to the amount of devices. And note that the system will be installed to a boot pool which it creates itself, so remember to use a fast but small flash storage device to install the system, for that the boot pool won’t be used to do anything and the space will be wasted, in another way it affects the system program performance.<br>We will talk about raid-z in the next post. A raid system based on zfs.</p>
 
 	
@@ -233,11 +234,7 @@ var _hmt = _hmt || [];
   <div class="row">
 	
 	
-		<p> Today, I tried to remove the graphic card from my old computer, which uses xeon e3 1230v2, which does not contain a core graphics card and need a discrete gpu to light up, i installed a freenas on it, which has no gui, remotely controlled through web page.</p>
-<p> After i removed the gpu, i plugged another pcie2nvme card with a samsung sm961 on it to the finally-free slot and boot it. It succeeded, and i can normally add the new sm961 to my zfs pool.</p>
-<p> Though i know that many hardware like routers, like ssd controllers, don’t have a video output and they can function well, but on pc hardware, i see it for the first time. And i searched for it, it says, some old pc boards doesn’t support booting without video outputs, the support starts from these years.</p>
-<p> And now i have a useless gtx750ti, i think i’m ready to tear it into nails.  :)</p>
-
+		<p> Today, I tried to remove the graphic card from my old computer, which uses xeon e3 1230v2, which does not contain a core graphics card and need a discrete gpu to light up.</p>
 	
 	</div>
   <a type="button" href="/2019/07/15/computer-without-graphic-cards/#more" class="btn btn-default more">Read More</a>
@@ -292,35 +289,35 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/gpu/">gpu<span>1</span></a></li>
+			<li><a href="/tags/nas/">nas<span>2</span></a></li>
 		
-			<li><a href="/tags/raid-z/">raid-z<span>1</span></a></li>
-		
-			<li><a href="/tags/filesystem/">filesystem<span>1</span></a></li>
-		
-			<li><a href="/tags/freebsd/">freebsd<span>1</span></a></li>
-		
-			<li><a href="/tags/OpenCV/">OpenCV<span>1</span></a></li>
+			<li><a href="/tags/programming/">programming<span>1</span></a></li>
 		
 			<li><a href="/tags/computer-vision/">computer vision<span>1</span></a></li>
 		
-			<li><a href="/tags/hardware/">hardware<span>1</span></a></li>
+			<li><a href="/tags/machine-vision/">machine vision<span>1</span></a></li>
 		
-			<li><a href="/tags/freenas/">freenas<span>1</span></a></li>
+			<li><a href="/tags/solaris/">solaris<span>1</span></a></li>
+		
+			<li><a href="/tags/filesystem/">filesystem<span>1</span></a></li>
+		
+			<li><a href="/tags/raid-z/">raid-z<span>1</span></a></li>
 		
 			<li><a href="/tags/machine-learning/">machine learning<span>1</span></a></li>
 		
 			<li><a href="/tags/software/">software<span>1</span></a></li>
 		
-			<li><a href="/tags/programming/">programming<span>1</span></a></li>
-		
-			<li><a href="/tags/nas/">nas<span>2</span></a></li>
-		
 			<li><a href="/tags/personal-cloud/">personal cloud<span>1</span></a></li>
 		
-			<li><a href="/tags/machine-vision/">machine vision<span>1</span></a></li>
+			<li><a href="/tags/gpu/">gpu<span>1</span></a></li>
 		
-			<li><a href="/tags/solaris/">solaris<span>1</span></a></li>
+			<li><a href="/tags/hardware/">hardware<span>1</span></a></li>
+		
+			<li><a href="/tags/OpenCV/">OpenCV<span>1</span></a></li>
+		
+			<li><a href="/tags/freenas/">freenas<span>1</span></a></li>
+		
+			<li><a href="/tags/freebsd/">freebsd<span>1</span></a></li>
 		
 		 
 		</ul>
