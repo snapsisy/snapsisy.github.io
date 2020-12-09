@@ -1,0 +1,427 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>core-module-OpenCV(PART 2) | Landing land</title>
+  <meta name="author" content="snapsisy">
+  
+  <meta name="description" content="2. OpenCV core modules(continue from where we left)
+In the second part, the topic is about some basic operations of images and pixels.
+Such as:
+- Look-Up-Table
+- Mask operations
+- Basic operations
+- Blending
+- DFT
+- Changing contrast and brightness">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="core-module-OpenCV(PART 2)">
+  <meta property="og:site_name" content="Landing land">
+
+  
+    <meta property="og:image" content>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+</html>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Landing land</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> core-module-OpenCV(PART 2)</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2 id="2-OpenCV-core-modules"><a href="#2-OpenCV-core-modules" class="headerlink" title="2. OpenCV core modules"></a>2. OpenCV core modules</h2><p>(continue from where we left)</p>
+<p>In the second part, the topic is about some basic operations of images and pixels.</p>
+<p>Such as:</p>
+<pre><code>- Look-Up-Table
+- Mask operations
+- Basic operations
+- Blending
+- DFT
+- Changing contrast and brightness</code></pre><a id="more"></a>
+
+<h3 id="2-2-Look-Up-Table-and-other-image-scanning-functions"><a href="#2-2-Look-Up-Table-and-other-image-scanning-functions" class="headerlink" title="2.2. Look-Up-Table and other image scanning functions"></a>2.2. Look-Up-Table and other image scanning functions</h3><h4 id="2-2-1-Test-case"><a href="#2-2-1-Test-case" class="headerlink" title="2.2.1. Test case"></a>2.2.1. Test case</h4><p>In this paragraph we will talk about LUT and other ways to go through images. We use a color space reduction example to demonstrate the differences.</p>
+<p>First, we make a rule for color reduction that represents as</p>
+<p>$${I_{new}} = ( \frac {I_{old}} {10} ) * {10} $$</p>
+<p>Then, if we pick up the 3rd parameter of cmd to be the value to reduce, we can have the following code:</p>
+<pre><code>int divideWith = 0; // convert our input string to number - C++ style
+stringstream s;
+s &lt;&lt; argv[2];
+s &gt;&gt; divideWith;
+if (!s || !divideWith)
+{
+    cout &lt;&lt; &quot;Invalid number entered for dividing. &quot; &lt;&lt; endl;
+    return -1;
+}
+uchar table[256];
+for (int i = 0; i &lt; 256; ++i)
+   table[i] = (uchar)(divideWith * (i/divideWith));</code></pre><p>We will also take the system function to measure the excutioning time for each method. Shown as below:</p>
+<pre><code>double t = (double)getTickCount();
+// do something ...
+t = ((double)getTickCount() - t)/getTickFrequency();
+cout &lt;&lt; &quot;Times passed in seconds: &quot; &lt;&lt; t &lt;&lt; endl;</code></pre><p>And let’s learn more about how the image matrix is stored in memory.</p>
+<h4 id="2-2-2-Matrix-storage"><a href="#2-2-2-Matrix-storage" class="headerlink" title="2.2.2. Matrix storage"></a>2.2.2. Matrix storage</h4><p>Because in many cases the memory is large enough to store the rows in a successive fashion the rows may follow one after another, creating a single long row. Because everything is in a single place following one after another this may help to speed up the scanning process. We can use the cv::Mat::isContinuous() function to ask the matrix if this is the case.</p>
+<h4 id="2-2-3-C-pointers-–-the-most-efficient-system-operation"><a href="#2-2-3-C-pointers-–-the-most-efficient-system-operation" class="headerlink" title="2.2.3. C pointers – the most efficient system operation"></a>2.2.3. C pointers – the most efficient system operation</h4><pre><code>Mat&amp; ScanImageAndReduceC(Mat&amp; I, const uchar* const table)
+{
+    // accept only char type matrices
+    CV_Assert(I.depth() == CV_8U);
+    int channels = I.channels();
+    int nRows = I.rows;
+    int nCols = I.cols * channels;
+    if (I.isContinuous())
+    {
+        nCols *= nRows;
+        nRows = 1;
+    }
+    int i,j;
+    uchar* p;
+    for( i = 0; i &lt; nRows; ++i)
+    {
+        p = I.ptr&lt;uchar&gt;(i);
+        for ( j = 0; j &lt; nCols; ++j)
+        {
+            p[j] = table[p[j]];
+        }
+    }
+    return I;
+}</code></pre><p>In this code slice, we combine the channels into rows, and use a pointer to go over all the elements in one row in one time, during which we assign the new color-reduced value to it. We can also use another method, benefiting from the feature of <em>data</em> data.</p>
+<pre><code>uchar* p = I.data;
+for( unsigned int i = 0; i &lt; ncol*nrows; ++i)
+*p++ = table[*p];</code></pre><p>This is the case of grayscale image. We don’t need to triple the elements that we go through in one row.</p>
+<h4 id="2-2-4-Iterator"><a href="#2-2-4-Iterator" class="headerlink" title="2.2.4. Iterator"></a>2.2.4. Iterator</h4><p>In this method, the iterator take away the risk that users can’t accurately assign enough <em>uchar</em> items, or to skip the gap correctly between the rows. We can use a simple ‘*’ to access every value.</p>
+<pre><code>Mat&amp; ScanImageAndReduceIterator(Mat&amp; I, const uchar* const table)
+{
+    // accept only char type matrices
+    CV_Assert(I.depth() == CV_8U);
+    const int channels = I.channels();
+    switch(channels)
+    {
+    case 1:
+        {
+            MatIterator_&lt;uchar&gt; it, end;
+            for( it = I.begin&lt;uchar&gt;(), end = I.end&lt;uchar&gt;(); it != end; ++it)
+                *it = table[*it];
+            break;
+        }
+    case 3:
+        {
+            MatIterator_&lt;Vec3b&gt; it, end;
+            for( it = I.begin&lt;Vec3b&gt;(), end = I.end&lt;Vec3b&gt;(); it != end; ++it)
+            {
+                (*it)[0] = table[(*it)[0]];
+                (*it)[1] = table[(*it)[1]];
+                (*it)[2] = table[(*it)[2]];
+            }
+        }
+    }
+    return I;
+}</code></pre><p>To access the n-th sub column we use simple operator[] access. OpenCV iterators go through the columns and automatically skip to the next row. Therefore in case of color images if you use a simple uchar iterator you’ll be able to access only the blue channel values.(BGR for the one cell three items).</p>
+<h4 id="2-2-5-On-the-fly-address-calculation-with-reference-returning"><a href="#2-2-5-On-the-fly-address-calculation-with-reference-returning" class="headerlink" title="2.2.5. On-the-fly address calculation with reference returning"></a>2.2.5. On-the-fly address calculation with reference returning</h4><p>This method is for random access of values.</p>
+<pre><code>Mat&amp; ScanImageAndReduceRandomAccess(Mat&amp; I, const uchar* const table)
+{
+    // accept only char type matrices
+    CV_Assert(I.depth() == CV_8U);
+    const int channels = I.channels();
+    switch(channels)
+    {
+    case 1:
+        {
+            for( int i = 0; i &lt; I.rows; ++i)
+                for( int j = 0; j &lt; I.cols; ++j )
+                    I.at&lt;uchar&gt;(i,j) = table[I.at&lt;uchar&gt;(i,j)];
+            break;
+        }
+    case 3:
+        {
+         Mat_&lt;Vec3b&gt; _I = I;
+         for( int i = 0; i &lt; I.rows; ++i)
+            for( int j = 0; j &lt; I.cols; ++j )
+               {
+                   _I(i,j)[0] = table[_I(i,j)[0]];
+                   _I(i,j)[1] = table[_I(i,j)[1]];
+                   _I(i,j)[2] = table[_I(i,j)[2]];
+            }
+         I = _I;
+         break;
+        }
+    }
+    return I;
+}</code></pre><p>The function takes your input type and coordinates and calculates the address of the queried item. Then returns a reference to that. Compared to the efficient way in release mode the only difference in using this is that for every element of the image you’ll get a new row pointer for what we use the C operator[] to acquire the column element.</p>
+<p>If you need to do multiple lookups using this method for an image it may be troublesome and time consuming to enter the type and the at keyword for each of the accesses. To solve this problem OpenCV has a cv::Mat_ data type.this is easily convertible from and to the usual cv::Mat data type. </p>
+<h4 id="2-2-6-LUT"><a href="#2-2-6-LUT" class="headerlink" title="2.2.6. LUT"></a>2.2.6. LUT</h4><p>OpenCV provides a function for modifying image values, without the need to write the scanning logic of the image. We use the cv::LUT() function of the core module.</p>
+<p>First we build a Mat type of the lookup table:</p>
+<pre><code>Mat lookUpTable(1, 256, CV_8U);
+uchar* p = lookUpTable.ptr();
+for( int i = 0; i &lt; 256; ++i)
+    p[i] = table[i];</code></pre><p>Finally call the function (I is our input image and J the output one):</p>
+<pre><code>LUT(I, lookUpTable, J);</code></pre><h4 id="2-2-7-Result"><a href="#2-2-7-Result" class="headerlink" title="2.2.7. Result"></a>2.2.7. Result</h4><p>In a quite large (2560 X 1600) image:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Efficient Way</td>
+<td>79.4717 milliseconds</td>
+</tr>
+<tr>
+<td>Iterator</td>
+<td>83.7201 milliseconds</td>
+</tr>
+<tr>
+<td>On-The-Fly RA</td>
+<td>93.7878 milliseconds</td>
+</tr>
+<tr>
+<td>LUT function</td>
+<td>32.5759 milliseconds</td>
+</tr>
+</tbody></table>
+<p>The fastest method turns out to be the LUT function. This is because the OpenCV library is multi-thread enabled via Intel Threaded Building Blocks. However, if you need to write a simple image scan prefer the pointer method. The iterator is a safer bet, however quite slower. Using the on-the-fly reference access method for full image scan is the most costly in debug mode. In the release mode it may beat the iterator approach or not, however it surely sacrifices for this the safety trait of iterators.</p>
+<h4 id="TO-BE-CONTINUED"><a href="#TO-BE-CONTINUED" class="headerlink" title="TO BE CONTINUED"></a>TO BE CONTINUED</h4>	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2020/11/10/core-module-OpenCV(PART 1)/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2020-12-07 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/technology/">technology<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/computer-vision/">computer vision<span>2</span></a></li> <li><a href="/tags/machine-vision/">machine vision<span>2</span></a></li> <li><a href="/tags/machine-learning/">machine learning<span>2</span></a></li> <li><a href="/tags/programming/">programming<span>2</span></a></li> <li><a href="/tags/OpenCV/">OpenCV<span>2</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2020 snapsisy
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
