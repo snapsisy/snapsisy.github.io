@@ -9,7 +9,16 @@
   <title>core-module-OpenCV(PART 2) | Landing land</title>
   <meta name="author" content="snapsisy">
   
-  <meta name="description" content="2. OpenCV core modules(continue from where we left)
+  <meta name="description" content="MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],
+            inlineMath: [[&#39;$&#39;,&#39;$&#39;]]
+            }
+        });
+    
+
+
+2. OpenCV core modules(continue from where we left)
 In the second part, the topic is about some basic operations of images and pixels.
 Such as:
 - Look-Up-Table
@@ -137,8 +146,17 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  		
 
-	  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+	  <head><meta name="generator" content="Hexo 3.9.0">
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
 
 <h2 id="2-OpenCV-core-modules"><a href="#2-OpenCV-core-modules" class="headerlink" title="2. OpenCV core modules"></a>2. OpenCV core modules</h2><p>(continue from where we left)</p>
 <p>In the second part, the topic is about some basic operations of images and pixels.</p>
@@ -257,7 +275,7 @@ for( unsigned int i = 0; i &lt; ncol*nrows; ++i)
     }
     return I;
 }</code></pre><p>The function takes your input type and coordinates and calculates the address of the queried item. Then returns a reference to that. Compared to the efficient way in release mode the only difference in using this is that for every element of the image you’ll get a new row pointer for what we use the C operator[] to acquire the column element.</p>
-<p>If you need to do multiple lookups using this method for an image it may be troublesome and time consuming to enter the type and the at keyword for each of the accesses. To solve this problem OpenCV has a cv::Mat_ data type.this is easily convertible from and to the usual cv::Mat data type. </p>
+<p>If you need to do multiple lookups using this method for an image it may be troublesome and time consuming to enter the type and the at keyword for each of the accesses. To solve this problem OpenCV has a cv::Mat_ data type.this is easily convertible from and to the usual cv::Mat data type.</p>
 <h4 id="2-2-6-LUT"><a href="#2-2-6-LUT" class="headerlink" title="2.2.6. LUT"></a>2.2.6. LUT</h4><p>OpenCV provides a function for modifying image values, without the need to write the scanning logic of the image. We use the cv::LUT() function of the core module.</p>
 <p>First we build a Mat type of the lookup table:</p>
 <pre><code>Mat lookUpTable(1, 256, CV_8U);
@@ -299,7 +317,8 @@ for( int i = 0; i &lt; 256; ++i)
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    <a href="/2021/02/08/smoothing-image/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
@@ -382,7 +401,7 @@ for( int i = 0; i &lt; 256; ++i)
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2020 snapsisy
+  &copy; 2022 snapsisy
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
      <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
